@@ -18,7 +18,7 @@ one.next = three;
 three.next = four;
 four.next = three; 
 
-console.log(one, three, four);
+//console.log(one, three, four);
 
 
 // function removeLoop(node, last = null)
@@ -31,21 +31,56 @@ console.log(one, three, four);
 //      removeLoop(node.next, node)
 //  }
 
+// function removeLoop(node) {
+//     let existing = [];
+//     traverse(node.next, node)
+//     function traverse(head, last){
+
+//         if(head == null)
+//             return;
+//         //if we have seen the last item, remove the link
+//         if(existing.find((n) => n  == last)) {
+//             head.next = null;
+//         }
+//         else {
+//             existing.push(head);
+//         }
+
+//         traverse(head.next, head);
+//     }
+//     console.log(one);
+// }
+
+// function removeLoop(node) {
+//     let slow = node.next;
+//     let fast = node.next.next;
+
+//     while(fast != null && fast.next != null) {
+//         if (slow == fast) {
+//             fast.next = null
+//             break;
+//         }
+//         slow = slow.next;
+//         fast = fast.next.next;
+//     }
+//     console.log(one);
+// }
+
 function removeLoop(node) {
-    while(node.next) {
-        cutLoop(node, node.next)
+    let existing = new Set();
+    let prev = null;
+    let index = node;
+    while (index != null) {
+        if (existing.has(index)) {
+            prev.next = null;
+            return true;
+        } else {
+            existing.add(index);
+            prev = index;
+            index = index.next;
+        }
     }
-    removeLoop(node.next);
+    return false;
 }
 
- function cutLoop(node, nodeToFind) {
-    while(node.next) {
-        if(node.next == nodeToFind) {
-            node.next == null;
-            return;
-        }
-        cutLoop(node.next, nodeToFind);
-    }
- }
-
- removeLoop(one);
+removeLoop(one);
