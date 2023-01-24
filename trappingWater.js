@@ -9,7 +9,7 @@ function trappingWater(arr, n)
 
     let trappedOnIndexes = Array(n).fill(0);
     
-    //interate left to right
+    //iterate left to right
     //if higher than leader, reset leader, set zero in index of trappedOn
     //if lower than leader set leader - val in trappedOn
     for (let i = 1; i < arr.length - 1; i++) {
